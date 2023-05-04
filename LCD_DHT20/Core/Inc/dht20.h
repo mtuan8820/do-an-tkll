@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 #include "main.h"
-#include "lcd16x2.h"
+//#include "lcd16x2.h"
 //#include "software_timer.h"
 
 #define INIT 0

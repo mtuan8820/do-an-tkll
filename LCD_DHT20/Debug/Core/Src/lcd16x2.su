@@ -1,0 +1,12 @@
+../Core/Src/lcd16x2.c:10:13:CLCD_Delay	16	static
+../Core/Src/lcd16x2.c:14:13:CLCD_WriteI2C	32	static
+../Core/Src/lcd16x2.c:47:6:CLCD_I2C_Init	24	static
+../Core/Src/lcd16x2.c:78:6:CLCD_I2C_SetCursor	24	static
+../Core/Src/lcd16x2.c:107:6:CLCD_I2C_WriteChar	16	static
+../Core/Src/lcd16x2.c:111:6:CLCD_I2C_WriteString	16	static
+../Core/Src/lcd16x2.c:115:6:CLCD_I2C_Clear	16	static
+../Core/Src/lcd16x2.c:120:6:CLCD_I2C_ReturnHome	16	static
+../Core/Src/lcd16x2.c:125:6:CLCD_I2C_CursorOn	16	static
+../Core/Src/lcd16x2.c:130:6:CLCD_I2C_CursorOff	16	static
+../Core/Src/lcd16x2.c:135:6:CLCD_I2C_BlinkOn	16	static
+../Core/Src/lcd16x2.c:140:6:CLCD_I2C_BlinkOff	16	static

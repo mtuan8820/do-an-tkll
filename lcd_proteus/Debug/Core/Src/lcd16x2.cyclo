@@ -1,0 +1,8 @@
+lcd16x2.c:13:6:lcd_send_cmd	1
+lcd16x2.c:26:6:lcd_send_data	1
+lcd16x2.c:39:6:lcd_init	1
+lcd16x2.c:57:6:lcd_send_string	2
+lcd16x2.c:62:6:lcd_clear_display	1
+lcd16x2.c:67:6:lcd_goto_XY	2
+lcd16x2.c:81:6:lcd_greeting	1
+lcd16x2.c:90:6:lcd_show_value	1

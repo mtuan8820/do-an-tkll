@@ -1,0 +1,4 @@
+dht20.c:23:6:dht20_init	1
+dht20.c:40:6:dht20_reset	1
+dht20.c:59:6:dht20_start	3
+dht20.c:82:6:dht20_read	1

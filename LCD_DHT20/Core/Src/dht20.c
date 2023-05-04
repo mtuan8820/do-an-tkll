@@ -9,7 +9,7 @@
 #include "dht20.h"
 
 extern I2C_HandleTypeDef hi2c1;
-extern UART_HandleTypeDef huart2;
+//extern UART_HandleTypeDef huart2;
 
 //dh20 address
 //7 bit dau la 0x38 va bit cuoi la R/W bit
