@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include <stdio.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -56,13 +57,14 @@ static void MX_I2C1_Init(void);
 static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 void showTemp();
-//void showHumid();
-void showStatus();
+void showVar();
+void showTime();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void showTemp() {
+	CLCD_I2C_Clear(&LCD1);
 	CLCD_I2C_SetCursor(&LCD1, 0, 0);
 	CLCD_I2C_WriteString(&LCD1, "Nhiet do: 30oC");
 	CLCD_I2C_SetCursor(&LCD1, 0, 1);
@@ -70,13 +72,26 @@ void showTemp() {
 	return;
 }
 
-//void showHumid() {
-//	CLCD_I2C_WriteString(&LCD1, "Do am: 60%");
-//	return;
-//}
+void showVar() {
+	CLCD_I2C_Clear(&LCD1);
+	CLCD_I2C_SetCursor(&LCD1, 0, 0);
+	CLCD_I2C_WriteString(&LCD1, "have item");
+}
+
+void showTime(){
+	char buffer[50];
+	sprintf(buffer, "%d", SCH_tasks_G[head].Delay*0.01);
+	CLCD_I2C_Clear(&LCD1);
+	CLCD_I2C_SetCursor(&LCD1, 0, 0);
+	CLCD_I2C_WriteString(&LCD1, buffer);
+}
 
 void showStatus() {
-	CLCD_I2C_WriteString(&LCD1, "Moi truong on dinh");
+	CLCD_I2C_Clear(&LCD1);
+	CLCD_I2C_SetCursor(&LCD1, 0, 0);
+	CLCD_I2C_WriteString(&LCD1, "Moi truong");
+	CLCD_I2C_SetCursor(&LCD1, 0, 1);
+	CLCD_I2C_WriteString(&LCD1, "On dinh");
 	return;
 }
 /* USER CODE END 0 */
@@ -120,17 +135,14 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-//  SCH_Add_Task(showTemp, 0, 600);
-//  SCH_Add_Task(showHumid, 200, 600);
-//  SCH_Add_Task(showStatus, 400, 600);
-  showTemp();
+
+  SCH_Add_Task(showTemp, 3, 600);
+  SCH_Add_Task(showStatus, 303, 600);
+//  SCH_Add_Task(showTemp, 203, 600);
+
   while (1)
   {
-
-//	  lcd_goto_XY(0, 0);
-//	  lcd_send_string("Welcome...");
-//	  HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
-//	  HAL_Delay(100);
+	SCH_Dispatch_Tasks();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -284,9 +296,7 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-	SCH_Update() ;
-	HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+	SCH_Update();
 }
 /* USER CODE END 4 */
 

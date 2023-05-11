@@ -58,25 +58,34 @@ static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 void showTemp();
 void showVar();
+void showTime();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void showTemp() {
-	CLCD_I2C_Clear(&LCD1);
-	CLCD_I2C_SetCursor(&LCD1, 0, 0);
-	CLCD_I2C_WriteString(&LCD1, "Nhiet do: 30oC");
-	CLCD_I2C_SetCursor(&LCD1, 0, 1);
-	CLCD_I2C_WriteString(&LCD1, "Do am   : 60%");
+//	CLCD_I2C_Clear(&LCD1);
+//	CLCD_I2C_SetCursor(&LCD1, 0, 0);
+//	CLCD_I2C_WriteString(&LCD1, "Nhiet do: 30oC");
+//	CLCD_I2C_SetCursor(&LCD1, 0, 1);
+//	CLCD_I2C_WriteString(&LCD1, "Do am   : 60%");
 	return;
 }
 
-void showStatus() {
+void showTime(){
+	char buffer[50];
+	sprintf(buffer, "%d", SCH_tasks_G[head].Delay*0.01);
 	CLCD_I2C_Clear(&LCD1);
 	CLCD_I2C_SetCursor(&LCD1, 0, 0);
-	CLCD_I2C_WriteString(&LCD1, "Moi truong");
-	CLCD_I2C_SetCursor(&LCD1, 0, 1);
-	CLCD_I2C_WriteString(&LCD1, "On dinh");
+	CLCD_I2C_WriteString(&LCD1, "abc");
+}
+
+void showStatus() {
+//	CLCD_I2C_Clear(&LCD1);
+//	CLCD_I2C_SetCursor(&LCD1, 0, 0);
+//	CLCD_I2C_WriteString(&LCD1, "Moi truong");
+//	CLCD_I2C_SetCursor(&LCD1, 0, 1);
+//	CLCD_I2C_WriteString(&LCD1, "On dinh");
 	return;
 }
 /* USER CODE END 0 */
@@ -121,8 +130,10 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  SCH_Add_Task(showTemp, 0, 1000);
-  SCH_Add_Task(showStatus, 500, 1000);
+//  SCH_Add_Task(showTemp, 3, 600);
+//  SCH_Add_Task(showStatus, 303, 600);
+//  SCH_Add_Task(showTemp, 203, 600);
+  showTime();
   while (1)
   {
 	SCH_Dispatch_Tasks();

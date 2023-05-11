@@ -98,10 +98,10 @@ void SCH_Update( void ) {
 	}
 
 //	//update first
+	SCH_tasks_G[head].Delay--;
 	if (SCH_tasks_G[head].Delay == 0){
 		SCH_tasks_G[head].RunMe = 1;
 	}
-	else SCH_tasks_G[head].Delay--;
 }
 
 void SCH_Dispatch_Tasks( void ) {

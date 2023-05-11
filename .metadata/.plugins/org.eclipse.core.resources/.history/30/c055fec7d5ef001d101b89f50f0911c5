@@ -121,8 +121,8 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  SCH_Add_Task(showTemp, 0, 1000);
-  SCH_Add_Task(showStatus, 500, 1000);
+  SCH_Add_Task(showTemp, 0, 200);
+  SCH_Add_Task(showStatus, 100, 200);
   while (1)
   {
 	SCH_Dispatch_Tasks();

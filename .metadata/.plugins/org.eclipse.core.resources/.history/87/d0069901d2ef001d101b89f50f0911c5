@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include <stdio.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -58,6 +57,7 @@ static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 void showTemp();
 void showVar();
+//void showHumid();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -70,6 +70,21 @@ void showTemp() {
 	CLCD_I2C_WriteString(&LCD1, "Do am   : 60%");
 	return;
 }
+
+void showVar() {
+	CLCD_I2C_Clear(&LCD1);
+	CLCD_I2C_SetCursor(&LCD1, 0, 0);
+	CLCD_I2C_WriteString(&LCD1, "have item");
+}
+
+void blink(){
+	HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+}
+
+//void showHumid() {
+//	CLCD_I2C_WriteString(&LCD1, "Do am: 60%");
+//	return;
+//}
 
 void showStatus() {
 	CLCD_I2C_Clear(&LCD1);
@@ -121,8 +136,10 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  SCH_Add_Task(showTemp, 0, 1000);
-  SCH_Add_Task(showStatus, 500, 1000);
+  SCH_Add_Task(showTemp, 3, 600);
+  SCH_Add_Task(showStatus, 303, 600);
+//  SCH_Add_Task(showTemp, 203, 600);
+
   while (1)
   {
 	SCH_Dispatch_Tasks();

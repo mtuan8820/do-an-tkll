@@ -7,43 +7,43 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         00002b1c  0800010c  0800010c  0001010c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000068  08002c28  08002c28  00012c28  2**2
+  2 .rodata       0000005c  08002c28  08002c28  00012c28  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08002c90  08002c90  0002000c  2**0
+  3 .ARM.extab    00000000  08002c84  08002c84  0002000c  2**0
                   CONTENTS
-  4 .ARM          00000000  08002c90  08002c90  0002000c  2**0
+  4 .ARM          00000000  08002c84  08002c84  0002000c  2**0
                   CONTENTS
-  5 .preinit_array 00000000  08002c90  08002c90  0002000c  2**0
+  5 .preinit_array 00000000  08002c84  08002c84  0002000c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08002c90  08002c90  00012c90  2**2
+  6 .init_array   00000004  08002c84  08002c84  00012c84  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  08002c94  08002c94  00012c94  2**2
+  7 .fini_array   00000004  08002c88  08002c88  00012c88  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         0000000c  20000000  08002c98  00020000  2**2
+  8 .data         0000000c  20000000  08002c8c  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          000003f0  2000000c  08002ca4  0002000c  2**2
+  9 .bss          000003f0  2000000c  08002c98  0002000c  2**2
                   ALLOC
- 10 ._user_heap_stack 00000604  200003fc  08002ca4  000203fc  2**0
+ 10 ._user_heap_stack 00000604  200003fc  08002c98  000203fc  2**0
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  0002000c  2**0
                   CONTENTS, READONLY
- 12 .debug_info   0000bb45  00000000  00000000  00020035  2**0
+ 12 .debug_info   0000bb0a  00000000  00000000  00020035  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00001b44  00000000  00000000  0002bb7a  2**0
+ 13 .debug_abbrev 00001b44  00000000  00000000  0002bb3f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000cc8  00000000  00000000  0002d6c0  2**3
+ 14 .debug_aranges 00000cb8  00000000  00000000  0002d688  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 00000c18  00000000  00000000  0002e388  2**3
+ 15 .debug_ranges 00000c08  00000000  00000000  0002e340  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00001b38  00000000  00000000  0002efa0  2**0
+ 16 .debug_macro  00001d1e  00000000  00000000  0002ef48  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000de80  00000000  00000000  00030ad8  2**0
+ 17 .debug_line   0000e02e  00000000  00000000  00030c66  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000869ea  00000000  00000000  0003e958  2**0
+ 18 .debug_str    0008a709  00000000  00000000  0003ec94  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000050  00000000  00000000  000c5342  2**0
+ 19 .comment      00000050  00000000  00000000  000c939d  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000035b0  00000000  00000000  000c5394  2**2
+ 20 .debug_frame  00003578  00000000  00000000  000c93f0  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -504,7 +504,7 @@ void CLCD_I2C_Clear(CLCD_I2C_Name* LCD)
  80003e6:	bd80      	pop	{r7, pc}
 
 080003e8 <showTemp>:
-//void showHumid();
+void showVar();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -543,10 +543,6 @@ void showTemp() {
  8000424:	08002c38 	.word	0x08002c38
 
 08000428 <showStatus>:
-//void showHumid() {
-//	CLCD_I2C_WriteString(&LCD1, "Do am: 60%");
-//	return;
-//}
 
 void showStatus() {
  8000428:	b580      	push	{r7, lr}
@@ -578,8 +574,8 @@ void showStatus() {
  8000458:	bd80      	pop	{r7, pc}
  800045a:	bf00      	nop
  800045c:	200000c4 	.word	0x200000c4
- 8000460:	08002c54 	.word	0x08002c54
- 8000464:	08002c60 	.word	0x08002c60
+ 8000460:	08002c48 	.word	0x08002c48
+ 8000464:	08002c54 	.word	0x08002c54
 
 08000468 <main>:
 /**
@@ -635,18 +631,16 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  SCH_Add_Task(showTemp, 3, 600);
- 800049c:	f44f 7216 	mov.w	r2, #600	; 0x258
- 80004a0:	2103      	movs	r1, #3
+  SCH_Add_Task(showTemp, 0, 1000);
+ 800049c:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
+ 80004a0:	2100      	movs	r1, #0
  80004a2:	4809      	ldr	r0, [pc, #36]	; (80004c8 <main+0x60>)
  80004a4:	f000 f964 	bl	8000770 <SCH_Add_Task>
-  SCH_Add_Task(showStatus, 303, 600);
- 80004a8:	f44f 7216 	mov.w	r2, #600	; 0x258
- 80004ac:	f240 112f 	movw	r1, #303	; 0x12f
+  SCH_Add_Task(showStatus, 500, 1000);
+ 80004a8:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
+ 80004ac:	f44f 71fa 	mov.w	r1, #500	; 0x1f4
  80004b0:	4806      	ldr	r0, [pc, #24]	; (80004cc <main+0x64>)
  80004b2:	f000 f95d 	bl	8000770 <SCH_Add_Task>
-//  SCH_Add_Task(showTemp, 203, 600);
-
   while (1)
   {
 	SCH_Dispatch_Tasks();
@@ -1452,12 +1446,12 @@ void SCH_Update( void ) {
  8000964:	4b19      	ldr	r3, [pc, #100]	; (80009cc <SCH_Update+0x6c>)
  8000966:	681b      	ldr	r3, [r3, #0]
  8000968:	2b00      	cmp	r3, #0
- 800096a:	d02a      	beq.n	80009c2 <SCH_Update+0x62>
+ 800096a:	d02b      	beq.n	80009c4 <SCH_Update+0x64>
 		return;
 	}
 
 //	//update first
-	SCH_tasks_G[head].Delay--;
+	if (SCH_tasks_G[head].Delay == 0){
  800096c:	4b18      	ldr	r3, [pc, #96]	; (80009d0 <SCH_Update+0x70>)
  800096e:	681a      	ldr	r2, [r3, #0]
  8000970:	4918      	ldr	r1, [pc, #96]	; (80009d4 <SCH_Update+0x74>)
@@ -1468,49 +1462,49 @@ void SCH_Update( void ) {
  800097a:	440b      	add	r3, r1
  800097c:	3304      	adds	r3, #4
  800097e:	681b      	ldr	r3, [r3, #0]
- 8000980:	1e59      	subs	r1, r3, #1
- 8000982:	4814      	ldr	r0, [pc, #80]	; (80009d4 <SCH_Update+0x74>)
- 8000984:	4613      	mov	r3, r2
- 8000986:	009b      	lsls	r3, r3, #2
- 8000988:	4413      	add	r3, r2
- 800098a:	009b      	lsls	r3, r3, #2
- 800098c:	4403      	add	r3, r0
- 800098e:	3304      	adds	r3, #4
- 8000990:	6019      	str	r1, [r3, #0]
-	if (SCH_tasks_G[head].Delay == 0){
- 8000992:	4b0f      	ldr	r3, [pc, #60]	; (80009d0 <SCH_Update+0x70>)
- 8000994:	681a      	ldr	r2, [r3, #0]
- 8000996:	490f      	ldr	r1, [pc, #60]	; (80009d4 <SCH_Update+0x74>)
- 8000998:	4613      	mov	r3, r2
- 800099a:	009b      	lsls	r3, r3, #2
- 800099c:	4413      	add	r3, r2
- 800099e:	009b      	lsls	r3, r3, #2
- 80009a0:	440b      	add	r3, r1
- 80009a2:	3304      	adds	r3, #4
- 80009a4:	681b      	ldr	r3, [r3, #0]
- 80009a6:	2b00      	cmp	r3, #0
- 80009a8:	d10c      	bne.n	80009c4 <SCH_Update+0x64>
+ 8000980:	2b00      	cmp	r3, #0
+ 8000982:	d10b      	bne.n	800099c <SCH_Update+0x3c>
 		SCH_tasks_G[head].RunMe = 1;
- 80009aa:	4b09      	ldr	r3, [pc, #36]	; (80009d0 <SCH_Update+0x70>)
- 80009ac:	681a      	ldr	r2, [r3, #0]
- 80009ae:	4909      	ldr	r1, [pc, #36]	; (80009d4 <SCH_Update+0x74>)
- 80009b0:	4613      	mov	r3, r2
- 80009b2:	009b      	lsls	r3, r3, #2
- 80009b4:	4413      	add	r3, r2
- 80009b6:	009b      	lsls	r3, r3, #2
- 80009b8:	440b      	add	r3, r1
- 80009ba:	330c      	adds	r3, #12
- 80009bc:	2201      	movs	r2, #1
- 80009be:	701a      	strb	r2, [r3, #0]
- 80009c0:	e000      	b.n	80009c4 <SCH_Update+0x64>
-		return;
- 80009c2:	bf00      	nop
+ 8000984:	4b12      	ldr	r3, [pc, #72]	; (80009d0 <SCH_Update+0x70>)
+ 8000986:	681a      	ldr	r2, [r3, #0]
+ 8000988:	4912      	ldr	r1, [pc, #72]	; (80009d4 <SCH_Update+0x74>)
+ 800098a:	4613      	mov	r3, r2
+ 800098c:	009b      	lsls	r3, r3, #2
+ 800098e:	4413      	add	r3, r2
+ 8000990:	009b      	lsls	r3, r3, #2
+ 8000992:	440b      	add	r3, r1
+ 8000994:	330c      	adds	r3, #12
+ 8000996:	2201      	movs	r2, #1
+ 8000998:	701a      	strb	r2, [r3, #0]
+ 800099a:	e014      	b.n	80009c6 <SCH_Update+0x66>
 	}
+	else SCH_tasks_G[head].Delay--;
+ 800099c:	4b0c      	ldr	r3, [pc, #48]	; (80009d0 <SCH_Update+0x70>)
+ 800099e:	681a      	ldr	r2, [r3, #0]
+ 80009a0:	490c      	ldr	r1, [pc, #48]	; (80009d4 <SCH_Update+0x74>)
+ 80009a2:	4613      	mov	r3, r2
+ 80009a4:	009b      	lsls	r3, r3, #2
+ 80009a6:	4413      	add	r3, r2
+ 80009a8:	009b      	lsls	r3, r3, #2
+ 80009aa:	440b      	add	r3, r1
+ 80009ac:	3304      	adds	r3, #4
+ 80009ae:	681b      	ldr	r3, [r3, #0]
+ 80009b0:	1e59      	subs	r1, r3, #1
+ 80009b2:	4808      	ldr	r0, [pc, #32]	; (80009d4 <SCH_Update+0x74>)
+ 80009b4:	4613      	mov	r3, r2
+ 80009b6:	009b      	lsls	r3, r3, #2
+ 80009b8:	4413      	add	r3, r2
+ 80009ba:	009b      	lsls	r3, r3, #2
+ 80009bc:	4403      	add	r3, r0
+ 80009be:	3304      	adds	r3, #4
+ 80009c0:	6019      	str	r1, [r3, #0]
+ 80009c2:	e000      	b.n	80009c6 <SCH_Update+0x66>
+		return;
+ 80009c4:	bf00      	nop
 }
- 80009c4:	46bd      	mov	sp, r7
- 80009c6:	bc80      	pop	{r7}
- 80009c8:	4770      	bx	lr
- 80009ca:	bf00      	nop
+ 80009c6:	46bd      	mov	sp, r7
+ 80009c8:	bc80      	pop	{r7}
+ 80009ca:	4770      	bx	lr
  80009cc:	200003f0 	.word	0x200003f0
  80009d0:	200003f4 	.word	0x200003f4
  80009d4:	200000d0 	.word	0x200000d0
@@ -2146,7 +2140,7 @@ LoopFillZerobss:
   ldr r1, =_edata
  8000cb0:	2000000c 	.word	0x2000000c
   ldr r2, =_sidata
- 8000cb4:	08002c98 	.word	0x08002c98
+ 8000cb4:	08002c8c 	.word	0x08002c8c
   ldr r2, =_sbss
  8000cb8:	2000000c 	.word	0x2000000c
   ldr r4, =_ebss
@@ -5930,7 +5924,7 @@ if (((RCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK1) == RCC_CLOCKTYPE_PCLK
  800227a:	bf00      	nop
  800227c:	40022000 	.word	0x40022000
  8002280:	40021000 	.word	0x40021000
- 8002284:	08002c78 	.word	0x08002c78
+ 8002284:	08002c6c 	.word	0x08002c6c
  8002288:	20000000 	.word	0x20000000
  800228c:	20000004 	.word	0x20000004
 
@@ -6078,7 +6072,7 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
  8002336:	bc90      	pop	{r4, r7}
  8002338:	4770      	bx	lr
  800233a:	bf00      	nop
- 800233c:	08002c68 	.word	0x08002c68
+ 800233c:	08002c5c 	.word	0x08002c5c
  8002340:	40021000 	.word	0x40021000
  8002344:	007a1200 	.word	0x007a1200
  8002348:	003d0900 	.word	0x003d0900
@@ -6126,7 +6120,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  800237c:	4618      	mov	r0, r3
  800237e:	bd80      	pop	{r7, pc}
  8002380:	40021000 	.word	0x40021000
- 8002384:	08002c88 	.word	0x08002c88
+ 8002384:	08002c7c 	.word	0x08002c7c
 
 08002388 <RCC_Delay>:
   * @brief  This function provides delay (in milliseconds) based on CPU cycles method.
@@ -7686,10 +7680,10 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  8002bea:	4798      	blx	r3
  8002bec:	3601      	adds	r6, #1
  8002bee:	e7f2      	b.n	8002bd6 <__libc_init_array+0x1e>
- 8002bf0:	08002c90 	.word	0x08002c90
- 8002bf4:	08002c90 	.word	0x08002c90
- 8002bf8:	08002c90 	.word	0x08002c90
- 8002bfc:	08002c94 	.word	0x08002c94
+ 8002bf0:	08002c84 	.word	0x08002c84
+ 8002bf4:	08002c84 	.word	0x08002c84
+ 8002bf8:	08002c84 	.word	0x08002c84
+ 8002bfc:	08002c88 	.word	0x08002c88
 
 08002c00 <memset>:
  8002c00:	4603      	mov	r3, r0
