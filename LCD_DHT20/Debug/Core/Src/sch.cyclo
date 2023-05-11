@@ -1,5 +1,6 @@
-sch.c:12:6:SCH_Init	2
-sch.c:26:6:SCH_Add_Task	4
-sch.c:46:6:SCH_Update	5
-sch.c:71:6:SCH_Dispatch_Tasks	4
-sch.c:91:6:SCH_Delete_Task	1
+sch.c:16:6:SCH_Init	2
+sch.c:28:6:insert_task	1
+sch.c:36:6:SCH_Add_Task	9
+sch.c:95:6:SCH_Update	3
+sch.c:107:6:SCH_Dispatch_Tasks	2
+sch.c:118:6:SCH_Delete_Task	2

@@ -56,6 +56,7 @@ static void MX_I2C1_Init(void);
 static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 void showTemp();
+void showVar();
 //void showHumid();
 /* USER CODE END PFP */
 
@@ -70,6 +71,12 @@ void showTemp() {
 	return;
 }
 
+void showVar() {
+	CLCD_I2C_Clear(&LCD1);
+	CLCD_I2C_SetCursor(&LCD1, 0, 0);
+	CLCD_I2C_WriteString(&LCD1, "have item");
+}
+
 void blink(){
 	HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 }
@@ -82,6 +89,8 @@ void blink(){
 void showStatus() {
 	CLCD_I2C_Clear(&LCD1);
 	CLCD_I2C_SetCursor(&LCD1, 0, 0);
+	CLCD_I2C_WriteString(&LCD1, "Moi truong");
+	CLCD_I2C_SetCursor(&LCD1, 0, 1);
 	CLCD_I2C_WriteString(&LCD1, "On dinh");
 	return;
 }
@@ -126,17 +135,14 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  SCH_Add_Task(showTemp, 0, 600);
-  SCH_Add_Task(showStatus, 300, 600);
-  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+
+  SCH_Add_Task(showTemp, 3, 600);
+  SCH_Add_Task(showStatus, 303, 600);
+//  SCH_Add_Task(showTemp, 203, 600);
+
   while (1)
   {
-		SCH_Dispatch_Tasks();
-//	  lcd_goto_XY(0, 0);
-//	  lcd_send_string("Welcome...");
-//	  HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
-//	  HAL_Delay(100);
+	SCH_Dispatch_Tasks();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -291,7 +297,6 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	SCH_Update();
-
 }
 /* USER CODE END 4 */
 
