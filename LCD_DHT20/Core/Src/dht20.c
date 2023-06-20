@@ -9,16 +9,11 @@
 #include "dht20.h"
 
 extern I2C_HandleTypeDef hi2c1;
-//extern UART_HandleTypeDef huart2;
 
-//dh20 address
-//7 bit dau la 0x38 va bit cuoi la R/W bit
-#define SLAVE_ADDRESS_DHT20 (0x38 << 1)
+#define SLAVE_ADDRESS_DHT20 (0xB8)
 
 //bien luu tru gia tri temp va humid
-uint16_t value_x10[2] = {0, 0};
-char temp[20], humid[20];
-//int status = INIT;
+double temp, humid;
 
 void dht20_init(void){
 	//Set register when call a wrong reset
@@ -79,27 +74,21 @@ void dht20_start(void){
 	HAL_Delay(80);
 }
 
-void dht20_read(uint16_t* value){
+void dht20_read(){
 	dht20_start();
 	uint8_t data[7];
-	uint32_t Temper = 0, Humid = 0;
-	HAL_I2C_Master_Receive(&hi2c1, SLAVE_ADDRESS_DHT20 | 0x01, (uint8_t*) data, 7, 0xFF);
+//	uint32_t Temper = 0, Humid = 0;
+	HAL_I2C_Master_Transmit(&hi2c1, SLAVE_ADDRESS_DHT20, 0x00, 1, 1000);
+	HAL_I2C_Master_Receive(&hi2c1, SLAVE_ADDRESS_DHT20, (uint8_t*) data, 5, 1000);
 
-	//Humid
-	Humid = (Humid | data[1]) << 8;
-	Humid = (Humid | data[2]) << 8;
-	Humid = Humid | data[3];
-	Humid = Humid >> 4;
-    Humid = (Humid * 100 * 10 / 1024 / 1024);
-    value[0] = Humid;
-
-	//Temperature
-    Temper = (Temper | data[3]) << 8;
-    Temper = (Temper | data[4]) << 8;
-    Temper = Temper | data[5];
-    Temper = Temper & 0xfffff;
-    Temper = Temper*200*10/1024/1024 - 500;
-	value[1] = Temper;
+	if (data[0] + data[1] + data[2] + data[3] != data[4]) {
+		temp = -1;
+		humid = -1;
+	}
+	else {
+		humid = data[0] + (double)data[1]/(double)10;
+		temp = data[2] + (double)data[3]/(double)10;
+	}
 
 }
 
